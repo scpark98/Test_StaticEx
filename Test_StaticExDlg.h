@@ -5,7 +5,7 @@
 #pragma once
 #include "afxwin.h"
 
-#include "../../Common/CStatic/StaticEx.h"
+#include "../../Common/CStatic/SCStatic/SCStatic.h"
 
 // CTest_StaticExDlg dialog
 class CTest_StaticExDlg : public CDialogEx
@@ -36,7 +36,7 @@ protected:
 	afx_msg HCURSOR OnQueryDragIcon();
 	DECLARE_MESSAGE_MAP()
 public:
-	CStaticEx m_static[10];
+	CSCStatic m_static[10];
 	afx_msg void OnBnClickedOk();
 	afx_msg void OnBnClickedCancel();
 	afx_msg void OnTimer(UINT_PTR nIDEvent);

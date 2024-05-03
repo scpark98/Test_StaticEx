@@ -120,6 +120,9 @@ BOOL CTest_StaticExDlg::OnInitDialog()
 	SetIcon(m_hIcon, FALSE);		// Set small icon
 
 	// TODO: Add extra initialization here
+
+	CWinApp* pApp = &theApp;
+
 	OnBnClickedOk();
 	m_hue = 0.0;
 	SetTimer(0, 10, NULL);
@@ -185,33 +188,36 @@ void CTest_StaticExDlg::OnBnClickedOk()
 	for (i = 0; i < 6; i++)
 	{
 		COLORREF cr = get_random_color();
-		m_static[i].SetTextColor(cr);
+		m_static[i].set_text_color(cr);
 		//m_static[i].SetBackColor(color_complementary(cr));
-		m_static[i].SetFontSize(10);
+		m_static[i].set_font_size(10);
 	}
+
+	m_static[0].set_header_images(IDB_CHECK_OK);
+	m_static[1].set_header_images(IDB_CONFIG_CYAN);
 
 	for (i = 6; i < 9; i++)
 	{
-		m_static[i].SetFontSize(10);
-		m_static[i].SetPrefixSpace();
-		if (i%2 == 0)
+		m_static[i].set_font_size(10);
+		m_static[i].set_prefix_space();
+		if (i % 2 == 0)
 		{
-			m_static[i].SetIcon(IDR_MAINFRAME, 32);
+			m_static[i].set_icon(IDR_MAINFRAME, 32);
 			if (i == 6)
-				m_static[i].SetGradientColor(get_random_color());
+				m_static[i].set_gradient_color(get_random_color());
 			else
-				m_static[i].SetGradientColor(2, GetSysColor(COLOR_3DFACE), get_random_color());
+				m_static[i].set_gradient_color(GetSysColor(COLOR_3DFACE), get_random_color());
 		}
 		else
 		{
-			m_static[i].SetVerticalGradient();
-			m_static[i].SetIcon(IDR_MAINFRAME);
-			m_static[i].SetGradientColor(2, get_random_color(), get_random_color());
+			m_static[i].set_vertical_gradient();
+			m_static[i].set_icon(IDR_MAINFRAME);
+			m_static[i].set_gradient_color(get_random_color(), get_random_color());
 		}
 	}
 
 	//m_static[9].SetVerticalGradient();
-	m_static[9].SetGradientColor(5, blue, darkblue, GRAY(128), GRAY(212), GRAY(128), blue);
+	m_static[9].set_gradient_color(blue, darkblue, GRAY(128), GRAY(212), GRAY(128), blue);
 }
 
 
@@ -236,8 +242,8 @@ void CTest_StaticExDlg::OnTimer(UINT_PTR nIDEvent)
 		HSL hsl(cr);
 		hsl.SetHue(m_hue);
 		cr = hsl.GetRGB();
-		m_static[0].SetBackColor(cr);
-		m_static[0].SetTextColor(color_complementary(cr));
+		m_static[0].set_back_color(cr);
+		m_static[0].set_text_color(color_complementary(cr));
 	}
 
 	CDialogEx::OnTimer(nIDEvent);

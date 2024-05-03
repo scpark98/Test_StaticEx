@@ -36,9 +36,6 @@
     <ClInclude Include="Resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Common\CStatic\StaticEx.h">
-      <Filter>Common</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Common\MemoryDC.h">
       <Filter>Common</Filter>
     </ClInclude>
@@ -49,6 +46,12 @@
       <Filter>Common</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Common\colors.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\CStatic\SCStatic\SCStatic.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\GdiplusBitmap.h">
       <Filter>Common</Filter>
     </ClInclude>
   </ItemGroup>
@@ -62,13 +65,16 @@
     <ClCompile Include="stdafx.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Common\CStatic\StaticEx.cpp">
-      <Filter>Common</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Common\Functions.cpp">
       <Filter>Common</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Common\colors.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Common\CStatic\SCStatic\SCStatic.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Common\GdiplusBitmap.cpp">
       <Filter>Common</Filter>
     </ClCompile>
   </ItemGroup>
@@ -84,6 +90,12 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\Test_StaticEx.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\images\check_ok.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\images\config_cyan.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>
