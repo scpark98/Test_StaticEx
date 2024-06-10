@@ -6,6 +6,7 @@
 #include "afxwin.h"
 
 #include "../../Common/CStatic/SCStatic/SCStatic.h"
+#include "../../Common/ResizeCtrl.h"
 
 // CTest_StaticExDlg dialog
 class CTest_StaticExDlg : public CDialogEx
@@ -14,12 +15,14 @@ class CTest_StaticExDlg : public CDialogEx
 public:
 	CTest_StaticExDlg(CWnd* pParent = NULL);	// standard constructor
 
-	double	m_hue;
+	CResizeCtrl		m_resize;
+	double			m_hue;
 
 // Dialog Data
 #ifdef AFX_DESIGN_TIME
 	enum { IDD = IDD_TEST_STATICEX_DIALOG };
 #endif
+
 
 	protected:
 	virtual void DoDataExchange(CDataExchange* pDX);	// DDX/DDV support
@@ -45,4 +48,6 @@ public:
 	afx_msg void OnBnClickedButtonWhiteUp();
 	CStatic m_static_gray;
 	CStatic m_static_white;
+	CSCStatic m_static_auto_font_size;
+	afx_msg void OnWindowPosChanged(WINDOWPOS* lpwndpos);
 };

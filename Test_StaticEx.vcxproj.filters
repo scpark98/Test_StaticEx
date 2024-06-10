@@ -54,6 +54,9 @@
     <ClInclude Include="..\..\Common\GdiplusBitmap.h">
       <Filter>Common</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Common\ResizeCtrl.h">
+      <Filter>Common</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Test_StaticEx.cpp">
@@ -75,6 +78,9 @@
       <Filter>Common</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Common\GdiplusBitmap.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Common\ResizeCtrl.cpp">
       <Filter>Common</Filter>
     </ClCompile>
   </ItemGroup>

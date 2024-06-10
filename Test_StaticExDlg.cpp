@@ -73,6 +73,7 @@ void CTest_StaticExDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_STATIC10, m_static[9]);
 	DDX_Control(pDX, IDC_STATIC_GRAY, m_static_gray);
 	DDX_Control(pDX, IDC_STATIC_WHITE, m_static_white);
+	DDX_Control(pDX, IDC_STATIC_AUTO_FONT_SIZE, m_static_auto_font_size);
 }
 
 BEGIN_MESSAGE_MAP(CTest_StaticExDlg, CDialogEx)
@@ -85,6 +86,7 @@ BEGIN_MESSAGE_MAP(CTest_StaticExDlg, CDialogEx)
 	ON_BN_CLICKED(IDC_BUTTON_MARQUEE, &CTest_StaticExDlg::OnBnClickedButtonMarquee)
 	ON_BN_CLICKED(IDC_BUTTON_GRAY_UP, &CTest_StaticExDlg::OnBnClickedButtonGrayUp)
 	ON_BN_CLICKED(IDC_BUTTON_WHITE_UP, &CTest_StaticExDlg::OnBnClickedButtonWhiteUp)
+	ON_WM_WINDOWPOSCHANGED()
 END_MESSAGE_MAP()
 
 
@@ -120,12 +122,21 @@ BOOL CTest_StaticExDlg::OnInitDialog()
 	SetIcon(m_hIcon, FALSE);		// Set small icon
 
 	// TODO: Add extra initialization here
+	m_resize.Create(this);
+	m_resize.Add(IDC_STATIC_AUTO_FONT_SIZE, 0, 0, 100, 100);
 
 	CWinApp* pApp = &theApp;
 
 	OnBnClickedOk();
 	m_hue = 0.0;
 	SetTimer(0, 10, NULL);
+
+	RestoreWindowPosition(&theApp, this);
+
+	m_static_auto_font_size.set_font_name(_T("D2Coding"));
+	m_static_auto_font_size.set_font_italic();
+	m_static_auto_font_size.set_font_size(36);
+	m_static_auto_font_size.set_auto_font_size();
 
 	return TRUE;  // return TRUE  unless you set the focus to a control
 }
@@ -268,4 +279,13 @@ void CTest_StaticExDlg::OnBnClickedButtonWhiteUp()
 	m_static_white.ShowWindow(SW_HIDE);
 	m_static_white.SetWindowPos(&m_static_gray, 0, 0, 0, 0, SWP_NOSIZE | SWP_NOMOVE);
 	m_static_white.ShowWindow(SW_SHOW);
+}
+
+
+void CTest_StaticExDlg::OnWindowPosChanged(WINDOWPOS* lpwndpos)
+{
+	CDialogEx::OnWindowPosChanged(lpwndpos);
+
+	// TODO: 여기에 메시지 처리기 코드를 추가합니다.
+	SaveWindowPosition(&theApp, this);
 }
