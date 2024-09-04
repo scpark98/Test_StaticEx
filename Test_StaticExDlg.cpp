@@ -249,12 +249,12 @@ void CTest_StaticExDlg::OnTimer(UINT_PTR nIDEvent)
 		else
 			m_hue = 0.0;
 
-		COLORREF cr = m_static[0].get_back_color();
+		COLORREF cr = m_static[0].get_back_color().ToCOLORREF();
 		HSL hsl(cr);
 		hsl.SetHue(m_hue);
 		cr = hsl.GetRGB();
-		m_static[0].set_back_color(cr);
-		m_static[0].set_text_color(color_complementary(cr));
+		m_static[0].set_back_color(RGB2gpColor(cr));
+		m_static[0].set_text_color(RGB2gpColor(color_complementary(cr)));
 	}
 
 	CDialogEx::OnTimer(nIDEvent);
