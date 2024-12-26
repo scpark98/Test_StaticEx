@@ -138,6 +138,9 @@ BOOL CTest_StaticExDlg::OnInitDialog()
 	m_static_auto_font_size.set_font_size(36);
 	m_static_auto_font_size.set_auto_font_size();
 
+	//각 라인별로 글자색, 크기, 간격을 다양하게 출력. html의 <color>와 같은 태그 방식? struct?
+	m_static_auto_font_size.set_text(_T(""));
+
 	return TRUE;  // return TRUE  unless you set the focus to a control
 }
 
