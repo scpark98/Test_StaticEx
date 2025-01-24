@@ -264,6 +264,7 @@
     <ResourceCompile Include="Test_StaticEx.rc" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="res\images\copy.bin" />
     <None Include="res\Test_StaticEx.rc2" />
   </ItemGroup>
   <ItemGroup>

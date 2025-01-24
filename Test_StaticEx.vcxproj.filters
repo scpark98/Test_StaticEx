@@ -105,6 +105,9 @@
     <None Include="res\Test_StaticEx.rc2">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="res\images\copy.bin">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\Test_StaticEx.ico">

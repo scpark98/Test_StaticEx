@@ -50,4 +50,7 @@ public:
 	CStatic m_static_white;
 	CSCStatic m_static_auto_font_size;
 	afx_msg void OnWindowPosChanged(WINDOWPOS* lpwndpos);
+	CSCStatic m_static_image;
+	CButton m_check_mirror;
+	afx_msg void OnBnClickedCheckMirror();
 };

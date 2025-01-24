@@ -74,6 +74,8 @@ void CTest_StaticExDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_STATIC_GRAY, m_static_gray);
 	DDX_Control(pDX, IDC_STATIC_WHITE, m_static_white);
 	DDX_Control(pDX, IDC_STATIC_AUTO_FONT_SIZE, m_static_auto_font_size);
+	DDX_Control(pDX, IDC_STATIC_IMAGE, m_static_image);
+	DDX_Control(pDX, IDC_CHECK_MIRROR, m_check_mirror);
 }
 
 BEGIN_MESSAGE_MAP(CTest_StaticExDlg, CDialogEx)
@@ -87,6 +89,7 @@ BEGIN_MESSAGE_MAP(CTest_StaticExDlg, CDialogEx)
 	ON_BN_CLICKED(IDC_BUTTON_GRAY_UP, &CTest_StaticExDlg::OnBnClickedButtonGrayUp)
 	ON_BN_CLICKED(IDC_BUTTON_WHITE_UP, &CTest_StaticExDlg::OnBnClickedButtonWhiteUp)
 	ON_WM_WINDOWPOSCHANGED()
+	ON_BN_CLICKED(IDC_CHECK_MIRROR, &CTest_StaticExDlg::OnBnClickedCheckMirror)
 END_MESSAGE_MAP()
 
 
@@ -123,7 +126,9 @@ BOOL CTest_StaticExDlg::OnInitDialog()
 
 	// TODO: Add extra initialization here
 	m_resize.Create(this);
-	m_resize.Add(IDC_STATIC_AUTO_FONT_SIZE, 0, 0, 100, 100);
+	m_resize.Add(IDC_STATIC_AUTO_FONT_SIZE, 0, 0, 50, 100);
+	m_resize.Add(IDC_STATIC_IMAGE, 50, 0, 50, 100);
+	m_resize.Add(IDC_CHECK_MIRROR, 50, 100, 0, 0);
 
 	CWinApp* pApp = &theApp;
 
@@ -137,9 +142,15 @@ BOOL CTest_StaticExDlg::OnInitDialog()
 	m_static_auto_font_size.set_font_italic();
 	m_static_auto_font_size.set_font_size(36);
 	m_static_auto_font_size.set_auto_font_size();
+	m_static_auto_font_size.set_back_color(Gdiplus::Color::Pink);
+
+	//m_static_image.set_back_color(Gdiplus::Color::Red);
+	m_static_image.set_back_image(_T("GIF"), IDR_GIF_COPY, Gdiplus::Color::Red);
+	m_static_image.fit_to_back_image(false);
 
 	//각 라인별로 글자색, 크기, 간격을 다양하게 출력. html의 <color>와 같은 태그 방식? struct?
-	m_static_auto_font_size.set_text(_T(""));
+
+
 
 	return TRUE;  // return TRUE  unless you set the focus to a control
 }
@@ -291,4 +302,10 @@ void CTest_StaticExDlg::OnWindowPosChanged(WINDOWPOS* lpwndpos)
 
 	// TODO: 여기에 메시지 처리기 코드를 추가합니다.
 	SaveWindowPosition(&theApp, this);
+}
+
+
+void CTest_StaticExDlg::OnBnClickedCheckMirror()
+{
+	m_static_image.set_back_image_mirror(m_check_mirror.GetCheck());
 }
