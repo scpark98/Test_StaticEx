@@ -76,6 +76,7 @@ void CTest_StaticExDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_STATIC_AUTO_FONT_SIZE, m_static_auto_font_size);
 	DDX_Control(pDX, IDC_STATIC_IMAGE, m_static_image);
 	DDX_Control(pDX, IDC_CHECK_MIRROR, m_check_mirror);
+	DDX_Control(pDX, IDC_STATIC_LINK, m_static_link);
 }
 
 BEGIN_MESSAGE_MAP(CTest_StaticExDlg, CDialogEx)
@@ -129,6 +130,7 @@ BOOL CTest_StaticExDlg::OnInitDialog()
 	m_resize.Add(IDC_STATIC_AUTO_FONT_SIZE, 0, 0, 50, 100);
 	m_resize.Add(IDC_STATIC_IMAGE, 50, 0, 50, 100);
 	m_resize.Add(IDC_CHECK_MIRROR, 50, 100, 0, 0);
+	m_resize.Add(IDC_STATIC_LINK, 100, 100, 0, 0);
 
 	CWinApp* pApp = &theApp;
 
@@ -149,7 +151,8 @@ BOOL CTest_StaticExDlg::OnInitDialog()
 	m_static_image.fit_to_back_image(false);
 
 	//각 라인별로 글자색, 크기, 간격을 다양하게 출력. html의 <color>와 같은 태그 방식? struct?
-
+	
+	m_static_link.set_link(_T("https://google.com"));
 
 
 	return TRUE;  // return TRUE  unless you set the focus to a control

@@ -53,4 +53,5 @@ public:
 	CSCStatic m_static_image;
 	CButton m_check_mirror;
 	afx_msg void OnBnClickedCheckMirror();
+	CSCStatic m_static_link;
 };
