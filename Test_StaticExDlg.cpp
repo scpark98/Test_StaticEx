@@ -147,7 +147,7 @@ BOOL CTest_StaticExDlg::OnInitDialog()
 	m_static_auto_font_size.set_back_color(Gdiplus::Color::Pink);
 
 	//m_static_image.set_back_color(Gdiplus::Color::Red);
-	m_static_image.set_back_image(_T("GIF"), IDR_GIF_COPY, Gdiplus::Color::White);
+	m_static_image.set_back_image(_T("GIF"), IDR_GIF_NOTEBOOK, Gdiplus::Color::White);
 	m_static_image.fit_to_back_image(false);
 
 	//각 라인별로 글자색, 크기, 간격을 다양하게 출력. html의 <color>와 같은 태그 방식? struct?

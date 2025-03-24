@@ -265,6 +265,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="res\images\copy.bin" />
+    <None Include="res\images\notebook_display.bin" />
     <None Include="res\Test_StaticEx.rc2" />
   </ItemGroup>
   <ItemGroup>
