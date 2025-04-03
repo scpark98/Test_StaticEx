@@ -77,6 +77,7 @@ void CTest_StaticExDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_STATIC_IMAGE, m_static_image);
 	DDX_Control(pDX, IDC_CHECK_MIRROR, m_check_mirror);
 	DDX_Control(pDX, IDC_STATIC_LINK, m_static_link);
+	DDX_Control(pDX, IDC_STATIC_TITLE, m_static_title);
 }
 
 BEGIN_MESSAGE_MAP(CTest_StaticExDlg, CDialogEx)
@@ -130,7 +131,7 @@ BOOL CTest_StaticExDlg::OnInitDialog()
 	m_resize.Add(IDC_STATIC_AUTO_FONT_SIZE, 0, 0, 50, 100);
 	m_resize.Add(IDC_STATIC_IMAGE, 50, 0, 50, 100);
 	m_resize.Add(IDC_CHECK_MIRROR, 50, 100, 0, 0);
-	m_resize.Add(IDC_STATIC_LINK, 100, 100, 0, 0);
+	m_resize.Add(IDC_STATIC_LINK, 0, 100, 0, 0);
 
 	CWinApp* pApp = &theApp;
 
@@ -139,6 +140,9 @@ BOOL CTest_StaticExDlg::OnInitDialog()
 	SetTimer(0, 10, NULL);
 
 	RestoreWindowPosition(&theApp, this);
+
+	m_static_title.set_back_color(Gdiplus::Color::Beige);
+	m_static_title.set_round(22, Gdiplus::Color::Gray, get_sys_color(COLOR_3DFACE));
 
 	m_static_auto_font_size.set_font_name(_T("D2Coding"));
 	m_static_auto_font_size.set_font_italic();
