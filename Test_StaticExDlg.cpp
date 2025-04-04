@@ -158,6 +158,8 @@ BOOL CTest_StaticExDlg::OnInitDialog()
 	
 	m_static_link.set_link(_T("https://google.com"));
 
+	for (int i = 0; i < 500; i++)
+		TRACE(_T("error %d = %s\n"), i, get_error_str(i));
 
 	return TRUE;  // return TRUE  unless you set the focus to a control
 }
@@ -215,7 +217,7 @@ HCURSOR CTest_StaticExDlg::OnQueryDragIcon()
 
 void CTest_StaticExDlg::OnBnClickedOk()
 {
-	m_static_image.pause_animation(-1);
+	m_static_image.pause_gif(-1);
 
 	int i;
 
