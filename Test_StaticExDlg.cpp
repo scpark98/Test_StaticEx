@@ -158,8 +158,11 @@ BOOL CTest_StaticExDlg::OnInitDialog()
 	
 	m_static_link.set_link(_T("https://google.com"));
 
-	for (int i = 0; i < 500; i++)
-		TRACE(_T("error %d = %s\n"), i, get_error_str(i));
+	for (int i = 100; i <= 600; i++)
+	{
+		TRACE(_T("get_error_str %d = %s\n"), i, get_error_str(i));
+		TRACE(_T("GetSystemErrorMesssage %d = %s\n"), i, CString(GetSystemErrorMesssage(i).c_str()));
+	}
 
 	return TRUE;  // return TRUE  unless you set the focus to a control
 }
@@ -229,8 +232,8 @@ void CTest_StaticExDlg::OnBnClickedOk()
 		m_static[i].set_font_size(10);
 	}
 
-	m_static[0].set_header_images(IDB_CHECK_OK);
-	m_static[1].set_header_images(IDB_CONFIG_CYAN);
+	m_static[0].add_header_image(IDB_CONFIG_CYAN);
+	m_static[1].add_header_image(IDB_CONFIG_CYAN, true);
 
 	for (i = 6; i < 9; i++)
 	{
@@ -239,16 +242,16 @@ void CTest_StaticExDlg::OnBnClickedOk()
 		if (i % 2 == 0)
 		{
 			m_static[i].set_icon(IDR_MAINFRAME, 32);
-			if (i == 6)
-				m_static[i].set_gradient_color(get_random_color());
-			else
-				m_static[i].set_gradient_color(GetSysColor(COLOR_3DFACE), get_random_color());
+			//if (i == 6)
+			//	m_static[i].set_gradient_color(get_random_color());
+			//else
+			//	m_static[i].set_gradient_color(GetSysColor(COLOR_3DFACE), get_random_color());
 		}
 		else
 		{
-			m_static[i].set_vertical_gradient();
-			m_static[i].set_icon(IDR_MAINFRAME);
-			m_static[i].set_gradient_color(get_random_color(), get_random_color());
+			//m_static[i].set_vertical_gradient();
+			m_static[i].set_icon(IDR_MAINFRAME, 16, true);
+			//m_static[i].set_gradient_color(get_random_color(), get_random_color());
 		}
 	}
 
