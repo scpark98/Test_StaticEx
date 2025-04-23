@@ -1,40 +1,26 @@
 #include "SCParagraph.h"
 
-CParagraphData::CParagraphData()
+
+CSCParagraph::CSCParagraph()
 {
 
 }
 
-CParagraphData::~CParagraphData()
+CSCParagraph::~CSCParagraph()
 {
-	if (lf)
-		delete lf;
 }
 
-CParagraph::CParagraph()
-{
-
-}
-
-CParagraph::~CParagraph()
-{
-	for (int i = 0; i < m_data.size(); i++)
-	{
-		CParagraphData* data = m_data[i];
-		delete data;
-	}
-}
-
+/*
 //ex. add("<font size=12><font bold = 1>first line") 입력된 후
 //add("second line")이면 이 때 스타일은 전 스타일값을 그대로 유지한다.
-void CParagraph::add(CString data)
+void CSCParagraph::add(CString data)
 {
-	CParagraphData	para_data;
+	CSCParagraphData	para_data;
 	int font_size = get_value(data, _T("font size"));
 }
 
 //tag_name이 실제 문자열 데이터에도 있을 수 있으므로 반드시 <, > 기호로 묶여있음을 확인해야 한다.
-DWORD CParagraph::get_value(CString data, CString tag_name, int start)
+DWORD CSCParagraph::get_value(CString data, CString tag_name, int start)
 {
 	int tag_pos = data.Find(tag_name, start);
 	if (tag_pos < 0)
@@ -73,3 +59,4 @@ DWORD CParagraph::get_value(CString data, CString tag_name, int start)
 	CString value;
 	//value = data.Mid(value_start + 1, tag_end - )
 }
+*/

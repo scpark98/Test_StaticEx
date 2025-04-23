@@ -78,6 +78,8 @@ void CTest_StaticExDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_CHECK_MIRROR, m_check_mirror);
 	DDX_Control(pDX, IDC_STATIC_LINK, m_static_link);
 	DDX_Control(pDX, IDC_STATIC_TITLE, m_static_title);
+	DDX_Control(pDX, IDC_BUTTON_PLAY, m_button_play);
+	DDX_Control(pDX, IDC_STATIC_PARAGRAPH, m_static_paragraph);
 }
 
 BEGIN_MESSAGE_MAP(CTest_StaticExDlg, CDialogEx)
@@ -92,6 +94,7 @@ BEGIN_MESSAGE_MAP(CTest_StaticExDlg, CDialogEx)
 	ON_BN_CLICKED(IDC_BUTTON_WHITE_UP, &CTest_StaticExDlg::OnBnClickedButtonWhiteUp)
 	ON_WM_WINDOWPOSCHANGED()
 	ON_BN_CLICKED(IDC_CHECK_MIRROR, &CTest_StaticExDlg::OnBnClickedCheckMirror)
+	ON_BN_CLICKED(IDC_BUTTON_PLAY, &CTest_StaticExDlg::OnBnClickedButtonPlay)
 END_MESSAGE_MAP()
 
 
@@ -128,16 +131,18 @@ BOOL CTest_StaticExDlg::OnInitDialog()
 
 	// TODO: Add extra initialization here
 	m_resize.Create(this);
-	m_resize.Add(IDC_STATIC_AUTO_FONT_SIZE, 0, 0, 50, 100);
+	m_resize.Add(IDC_STATIC_AUTO_FONT_SIZE, 0, 0, 50, 50);
+	m_resize.Add(IDC_STATIC_PARAGRAPH, 0, 50, 50, 50);
 	m_resize.Add(IDC_STATIC_IMAGE, 50, 0, 50, 100);
 	m_resize.Add(IDC_CHECK_MIRROR, 50, 100, 0, 0);
+	m_resize.Add(IDC_BUTTON_PLAY, 50, 100, 0, 0);
 	m_resize.Add(IDC_STATIC_LINK, 0, 100, 0, 0);
 
 	CWinApp* pApp = &theApp;
 
 	OnBnClickedOk();
-	m_hue = 0.0;
-	SetTimer(0, 10, NULL);
+	//m_hue = 0.0;
+	SetTimer(0, 100, NULL);
 
 	RestoreWindowPosition(&theApp, this);
 
@@ -150,6 +155,8 @@ BOOL CTest_StaticExDlg::OnInitDialog()
 	m_static_auto_font_size.set_auto_font_size();
 	m_static_auto_font_size.set_back_color(Gdiplus::Color::Pink);
 
+	m_static_paragraph.set_text(_T("<b><cr = Red>This</b></cr > is a <cr =Blue><i>sample</i> <b>paragraph</b>."));
+
 	//m_static_image.set_back_color(Gdiplus::Color::Red);
 	m_static_image.set_back_image(_T("GIF"), IDR_GIF_NOTEBOOK, Gdiplus::Color::White);
 	m_static_image.fit_to_back_image(false);
@@ -158,11 +165,11 @@ BOOL CTest_StaticExDlg::OnInitDialog()
 	
 	m_static_link.set_link(_T("https://google.com"));
 
-	for (int i = 100; i <= 600; i++)
-	{
-		TRACE(_T("get_error_str %d = %s\n"), i, get_error_str(i));
-		TRACE(_T("GetSystemErrorMesssage %d = %s\n"), i, CString(GetSystemErrorMesssage(i).c_str()));
-	}
+	//for (int i = 100; i <= 600; i++)
+	//{
+	//	TRACE(_T("get_error_str %d = %s\n"), i, get_error_str(i));
+	//	TRACE(_T("GetSystemErrorMesssage %d = %s\n"), i, CString(GetSystemErrorMesssage(i).c_str()));
+	//}
 
 	return TRUE;  // return TRUE  unless you set the focus to a control
 }
@@ -220,7 +227,8 @@ HCURSOR CTest_StaticExDlg::OnQueryDragIcon()
 
 void CTest_StaticExDlg::OnBnClickedOk()
 {
-	m_static_image.pause_gif(-1);
+	CRect r = m_static_auto_font_size.get_text_rect();
+	TRACE(_T("static_auto_font_size text rect = %s\n"), get_rect_info_string(r));
 
 	int i;
 
@@ -272,6 +280,10 @@ void CTest_StaticExDlg::OnTimer(UINT_PTR nIDEvent)
 	// TODO: Add your message handler code here and/or call default
 	if (nIDEvent == 0)
 	{
+		CSize sz = m_static_auto_font_size.get_text_extent();
+		TRACE(_T("static_auto_font_size text cx = %d, cy = %d\n"), sz.cx, sz.cy);
+
+		/*
 		if (m_hue < 360.0)
 			m_hue += 1.0;
 		else
@@ -283,6 +295,7 @@ void CTest_StaticExDlg::OnTimer(UINT_PTR nIDEvent)
 		cr = hsl.GetRGB();
 		m_static[0].set_back_color(RGB2gpColor(cr));
 		m_static[0].set_text_color(RGB2gpColor(color_complementary(cr)));
+		*/
 	}
 
 	CDialogEx::OnTimer(nIDEvent);
@@ -322,4 +335,28 @@ void CTest_StaticExDlg::OnWindowPosChanged(WINDOWPOS* lpwndpos)
 void CTest_StaticExDlg::OnBnClickedCheckMirror()
 {
 	m_static_image.set_back_image_mirror(m_check_mirror.GetCheck());
+}
+
+BOOL CTest_StaticExDlg::PreTranslateMessage(MSG* pMsg)
+{
+	// TODO: 여기에 특수화된 코드를 추가 및/또는 기본 클래스를 호출합니다.
+	if (pMsg->message == WM_KEYDOWN)
+	{
+		switch (pMsg->wParam)
+		{
+			case VK_ADD:
+				m_static_auto_font_size.enlarge_font_size(true);
+				break;
+			case VK_SUBTRACT:
+				m_static_auto_font_size.enlarge_font_size(false);
+				break;
+		}
+	}
+
+	return CDialogEx::PreTranslateMessage(pMsg);
+}
+
+void CTest_StaticExDlg::OnBnClickedButtonPlay()
+{
+	m_static_image.pause_gif(-1);
 }
