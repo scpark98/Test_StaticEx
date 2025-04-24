@@ -6,7 +6,7 @@
 #include "afxwin.h"
 
 #include "../../Common/CStatic/SCStatic/SCStatic.h"
-#include "SCParagraphStatic.h"
+#include "../../Common/CStatic/SCParagraphStatic/SCParagraphStatic.h"
 #include "../../Common/ResizeCtrl.h"
 
 // CTest_StaticExDlg dialog
@@ -60,4 +60,5 @@ public:
 	CButton m_button_play;
 	afx_msg void OnBnClickedButtonPlay();
 	CSCParagraphStatic m_static_paragraph;
+	virtual void PreSubclassWindow();
 };

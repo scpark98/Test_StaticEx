@@ -142,7 +142,7 @@ BOOL CTest_StaticExDlg::OnInitDialog()
 
 	OnBnClickedOk();
 	//m_hue = 0.0;
-	SetTimer(0, 100, NULL);
+	//SetTimer(0, 100, NULL);
 
 	RestoreWindowPosition(&theApp, this);
 
@@ -155,13 +155,13 @@ BOOL CTest_StaticExDlg::OnInitDialog()
 	m_static_auto_font_size.set_auto_font_size();
 	m_static_auto_font_size.set_back_color(Gdiplus::Color::Pink);
 
-	m_static_paragraph.set_text(_T("<b><cr = Red>This</b></cr > is a <cr =Blue><i>sample</i> <b>paragraph</b>."));
+	m_static_paragraph.set_back_color(Gdiplus::Color::White);
+	m_static_paragraph.set_text(_T("<name=궁서><b><cr=Red><u>This</b></cr> <size=20>is</size></u> a <crb=Red><i>샘플</i></name><cr=Green><b><size=40>pa<cr=Yellow>ra<s>gr</cr>a</s>ph</b>."));
 
-	//m_static_image.set_back_color(Gdiplus::Color::Red);
+	m_static_image.set_back_color(Gdiplus::Color::Red);
 	m_static_image.set_back_image(_T("GIF"), IDR_GIF_NOTEBOOK, Gdiplus::Color::White);
 	m_static_image.fit_to_back_image(false);
 
-	//각 라인별로 글자색, 크기, 간격을 다양하게 출력. html의 <color>와 같은 태그 방식? struct?
 	
 	m_static_link.set_link(_T("https://google.com"));
 
@@ -250,20 +250,19 @@ void CTest_StaticExDlg::OnBnClickedOk()
 		if (i % 2 == 0)
 		{
 			m_static[i].set_icon(IDR_MAINFRAME, 32);
-			//if (i == 6)
-			//	m_static[i].set_gradient_color(get_random_color());
-			//else
-			//	m_static[i].set_gradient_color(GetSysColor(COLOR_3DFACE), get_random_color());
+			if (i == 6)
+				m_static[i].set_gradient_color(get_random_color());
+			else
+				m_static[i].set_gradient_color(GetSysColor(COLOR_3DFACE), get_random_color());
 		}
 		else
 		{
-			//m_static[i].set_vertical_gradient();
+			m_static[i].set_vertical_gradient();
 			m_static[i].set_icon(IDR_MAINFRAME, 16, true);
-			//m_static[i].set_gradient_color(get_random_color(), get_random_color());
+			m_static[i].set_gradient_color(get_random_color(), get_random_color());
 		}
 	}
 
-	//m_static[9].SetVerticalGradient();
 	m_static[9].set_gradient_color(blue, darkblue, GRAY(128), GRAY(212), GRAY(128), blue);
 }
 
@@ -359,4 +358,11 @@ BOOL CTest_StaticExDlg::PreTranslateMessage(MSG* pMsg)
 void CTest_StaticExDlg::OnBnClickedButtonPlay()
 {
 	m_static_image.pause_gif(-1);
+}
+
+void CTest_StaticExDlg::PreSubclassWindow()
+{
+	// TODO: 여기에 특수화된 코드를 추가 및/또는 기본 클래스를 호출합니다.
+
+	CDialogEx::PreSubclassWindow();
 }
