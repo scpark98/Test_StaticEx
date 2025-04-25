@@ -5,6 +5,7 @@
 #pragma once
 #include "afxwin.h"
 
+#include "../../Common/CEdit/SCEdit/SCEdit.h"
 #include "../../Common/CStatic/SCStatic/SCStatic.h"
 #include "../../Common/CStatic/SCParagraphStatic/SCParagraphStatic.h"
 #include "../../Common/ResizeCtrl.h"
@@ -61,4 +62,6 @@ public:
 	afx_msg void OnBnClickedButtonPlay();
 	CSCParagraphStatic m_static_paragraph;
 	virtual void PreSubclassWindow();
+	CSCEdit m_edit_tag;
+	afx_msg void OnEnChangeEditTag();
 };

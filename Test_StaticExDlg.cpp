@@ -80,6 +80,7 @@ void CTest_StaticExDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_STATIC_TITLE, m_static_title);
 	DDX_Control(pDX, IDC_BUTTON_PLAY, m_button_play);
 	DDX_Control(pDX, IDC_STATIC_PARAGRAPH, m_static_paragraph);
+	DDX_Control(pDX, IDC_EDIT_TAG, m_edit_tag);
 }
 
 BEGIN_MESSAGE_MAP(CTest_StaticExDlg, CDialogEx)
@@ -95,6 +96,7 @@ BEGIN_MESSAGE_MAP(CTest_StaticExDlg, CDialogEx)
 	ON_WM_WINDOWPOSCHANGED()
 	ON_BN_CLICKED(IDC_CHECK_MIRROR, &CTest_StaticExDlg::OnBnClickedCheckMirror)
 	ON_BN_CLICKED(IDC_BUTTON_PLAY, &CTest_StaticExDlg::OnBnClickedButtonPlay)
+	ON_EN_CHANGE(IDC_EDIT_TAG, &CTest_StaticExDlg::OnEnChangeEditTag)
 END_MESSAGE_MAP()
 
 
@@ -133,9 +135,10 @@ BOOL CTest_StaticExDlg::OnInitDialog()
 	m_resize.Create(this);
 	m_resize.Add(IDC_STATIC_AUTO_FONT_SIZE, 0, 0, 50, 50);
 	m_resize.Add(IDC_STATIC_PARAGRAPH, 0, 50, 50, 50);
+	m_resize.Add(IDC_EDIT_TAG, 0, 100, 100, 0);
 	m_resize.Add(IDC_STATIC_IMAGE, 50, 0, 50, 100);
-	m_resize.Add(IDC_CHECK_MIRROR, 50, 100, 0, 0);
-	m_resize.Add(IDC_BUTTON_PLAY, 50, 100, 0, 0);
+	m_resize.Add(IDC_CHECK_MIRROR, 100, 100, 0, 0);
+	m_resize.Add(IDC_BUTTON_PLAY, 100, 100, 0, 0);
 	m_resize.Add(IDC_STATIC_LINK, 0, 100, 0, 0);
 
 	CWinApp* pApp = &theApp;
@@ -155,8 +158,17 @@ BOOL CTest_StaticExDlg::OnInitDialog()
 	m_static_auto_font_size.set_auto_font_size();
 	m_static_auto_font_size.set_back_color(Gdiplus::Color::Pink);
 
-	m_static_paragraph.set_back_color(Gdiplus::Color::White);
-	m_static_paragraph.set_text(_T("<name=궁서><b><cr=Red><u>This</b></cr> <size=20>is</size></u> a <crb=Red><i>샘플</i></name><cr=Green><b><size=40>pa<cr=Yellow>ra<s>gr</cr>a</s>ph</b>."));
+	CString tag_text = _T("<f=궁서><b><cr=Red><u>This</b></cr> <sz=18>is</sz></u> a<br><cb=Red><i><sz=64>태</i>그</sz></f><cr=Green><b><sz=30>pa</f><cr=Yellow>ra<s>gr</cr>a</s>ph</b>.");
+	//CString tag_text = _T("This is a<br><sz=20>sample paragraph");
+	m_static_paragraph.set_margin(4, 4, 4, 4);
+	m_static_paragraph.set_back_color(Gdiplus::Color::Beige);
+	m_static_paragraph.set_icon(IDR_MAINFRAME, 256);
+	m_static_paragraph.set_text(tag_text);
+	m_static_paragraph.draw_hover_rect();
+
+	m_edit_tag.SetWindowText(tag_text);
+	m_edit_tag.set_font_size(8);
+	//m_static_paragraph.set_text(_T("This is a sample paragraph."));
 
 	m_static_image.set_back_color(Gdiplus::Color::Red);
 	m_static_image.set_back_image(_T("GIF"), IDR_GIF_NOTEBOOK, Gdiplus::Color::White);
@@ -365,4 +377,12 @@ void CTest_StaticExDlg::PreSubclassWindow()
 	// TODO: 여기에 특수화된 코드를 추가 및/또는 기본 클래스를 호출합니다.
 
 	CDialogEx::PreSubclassWindow();
+}
+
+void CTest_StaticExDlg::OnEnChangeEditTag()
+{
+	CString text;
+	m_edit_tag.GetWindowText(text);
+
+	m_static_paragraph.set_text(text);
 }
