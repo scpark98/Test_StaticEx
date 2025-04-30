@@ -162,9 +162,9 @@ BOOL CTest_StaticExDlg::OnInitDialog()
 	//CString tag_text = _T("This is a<br><sz=20>sample paragraph");
 	m_static_paragraph.set_margin(4, 4, 4, 4);
 	m_static_paragraph.set_back_color(Gdiplus::Color::Beige);
-	m_static_paragraph.set_icon(IDR_MAINFRAME, 256);
+	m_static_paragraph.set_icon(IDR_MAINFRAME, 32);
 	m_static_paragraph.set_text(tag_text);
-	m_static_paragraph.draw_hover_rect();
+	m_static_paragraph.draw_word_hover_rect();
 
 	m_edit_tag.SetWindowText(tag_text);
 	m_edit_tag.set_font_size(8);
