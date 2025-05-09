@@ -132,6 +132,17 @@ BOOL CTest_StaticExDlg::OnInitDialog()
 	SetIcon(m_hIcon, FALSE);		// Set small icon
 
 	// TODO: Add extra initialization here
+	CString str = _T("abc (2)");
+	int blank_pos = str.ReverseFind(' ');
+	if (blank_pos > 0)
+		str = str.Left(blank_pos);
+
+
+	bool enable;
+	CString ip, bypass, PAC_url;
+	int port;
+	get_proxy_info(enable, ip, port, bypass, PAC_url);
+
 	m_resize.Create(this);
 	m_resize.Add(IDC_STATIC_AUTO_FONT_SIZE, 0, 0, 50, 50);
 	m_resize.Add(IDC_STATIC_PARAGRAPH, 0, 50, 50, 50);
