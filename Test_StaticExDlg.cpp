@@ -162,6 +162,7 @@ BOOL CTest_StaticExDlg::OnInitDialog()
 
 	m_static_title.set_back_color(Gdiplus::Color::Beige);
 	m_static_title.set_round(22, Gdiplus::Color::Gray, get_sys_color(COLOR_3DFACE));
+	m_static_title.set_font_size(18);
 
 	m_static_auto_font_size.set_font_name(_T("D2Coding"));
 	m_static_auto_font_size.set_font_italic();
@@ -250,6 +251,11 @@ HCURSOR CTest_StaticExDlg::OnQueryDragIcon()
 
 void CTest_StaticExDlg::OnBnClickedOk()
 {
+	m_static_white.sunken();
+
+	CRect rctrl = m_static_white.get_rect();
+	TRACE(_T("static_auto_font_size rect = %s\n"), get_rect_info_string(rctrl));
+
 	CRect r = m_static_auto_font_size.get_text_rect();
 	TRACE(_T("static_auto_font_size text rect = %s\n"), get_rect_info_string(r));
 
