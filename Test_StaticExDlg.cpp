@@ -170,7 +170,7 @@ BOOL CTest_StaticExDlg::OnInitDialog()
 	m_static_auto_font_size.set_auto_font_size();
 	m_static_auto_font_size.set_back_color(Gdiplus::Color::Pink);
 
-	CString tag_text = _T("<f=±Ã¼­><b><cr=Red><u>This</b></cr> <sz=18>is</sz></u> a<br><cb=Red><i><sz=64>ÅÂ</i>±×</sz></f><cr=Green><b><sz=30>pa</f><cr=Yellow>ra<s>gr</cr>a</s>ph</b>.");
+	CString tag_text = _T("SCPARK-KOINO-LG<br><f=±Ã¼­><b><cr=Red><u>This</b></cr> <sz=18>is</sz></u> a<br><cb=Red><i><sz=64>ÅÂ</i>±×</sz></f><cr=Green><b><sz=30>pa</f><cr=Yellow>ra<s>gr</cr>a</s>ph</b>.");
 	//CString tag_text = _T("This is a<br><sz=20>sample paragraph");
 	m_static_paragraph.set_margin(4, 4, 4, 4);
 	m_static_paragraph.set_back_color(Gdiplus::Color::Beige);
@@ -402,4 +402,5 @@ void CTest_StaticExDlg::OnEnChangeEditTag()
 	m_edit_tag.GetWindowText(text);
 
 	m_static_paragraph.set_text(text);
+	TRACE(_T("rect_text = %s\n"), get_rect_info_string(m_static_paragraph.get_text_rect()));
 }
