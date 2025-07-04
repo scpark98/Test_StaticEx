@@ -81,6 +81,8 @@ void CTest_StaticExDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_BUTTON_PLAY, m_button_play);
 	DDX_Control(pDX, IDC_STATIC_PARAGRAPH, m_static_paragraph);
 	DDX_Control(pDX, IDC_EDIT_TAG, m_edit_tag);
+	DDX_Control(pDX, IDC_COMBO_HALIGN, m_combo_halign);
+	DDX_Control(pDX, IDC_COMBO_VALIGN, m_combo_valign);
 }
 
 BEGIN_MESSAGE_MAP(CTest_StaticExDlg, CDialogEx)
@@ -97,6 +99,8 @@ BEGIN_MESSAGE_MAP(CTest_StaticExDlg, CDialogEx)
 	ON_BN_CLICKED(IDC_CHECK_MIRROR, &CTest_StaticExDlg::OnBnClickedCheckMirror)
 	ON_BN_CLICKED(IDC_BUTTON_PLAY, &CTest_StaticExDlg::OnBnClickedButtonPlay)
 	ON_EN_CHANGE(IDC_EDIT_TAG, &CTest_StaticExDlg::OnEnChangeEditTag)
+	ON_CBN_SELCHANGE(IDC_COMBO_HALIGN, &CTest_StaticExDlg::OnCbnSelchangeComboHAlign)
+	ON_CBN_SELCHANGE(IDC_COMBO_VALIGN, &CTest_StaticExDlg::OnCbnSelchangeComboVAlign)
 END_MESSAGE_MAP()
 
 
@@ -146,6 +150,8 @@ BOOL CTest_StaticExDlg::OnInitDialog()
 	m_resize.Create(this);
 	m_resize.Add(IDC_STATIC_AUTO_FONT_SIZE, 0, 0, 50, 50);
 	m_resize.Add(IDC_STATIC_PARAGRAPH, 0, 50, 50, 50);
+	m_resize.Add(IDC_COMBO_HALIGN, 0, 100, 0, 0);
+	m_resize.Add(IDC_COMBO_VALIGN, 0, 100, 0, 0);
 	m_resize.Add(IDC_EDIT_TAG, 0, 100, 100, 0);
 	m_resize.Add(IDC_STATIC_IMAGE, 50, 0, 50, 100);
 	m_resize.Add(IDC_CHECK_MIRROR, 100, 100, 0, 0);
@@ -180,7 +186,14 @@ BOOL CTest_StaticExDlg::OnInitDialog()
 
 	m_edit_tag.SetWindowText(tag_text);
 	m_edit_tag.set_font_size(8);
-	//m_static_paragraph.set_text(_T("This is a sample paragraph."));
+	
+	m_combo_halign.AddString(_T("DT_LEFT"));
+	m_combo_halign.AddString(_T("DT_CENTER"));
+	m_combo_halign.AddString(_T("DT_RIGHT"));
+
+	m_combo_valign.AddString(_T("DT_TOP"));
+	m_combo_valign.AddString(_T("DT_VCENTER"));
+	m_combo_valign.AddString(_T("DT_BOTTOM"));
 
 	m_static_image.set_back_color(Gdiplus::Color::Red);
 	m_static_image.set_back_image(_T("GIF"), IDR_GIF_NOTEBOOK, Gdiplus::Color::White);
@@ -403,4 +416,27 @@ void CTest_StaticExDlg::OnEnChangeEditTag()
 
 	m_static_paragraph.set_text(text);
 	TRACE(_T("rect_text = %s\n"), get_rect_info_string(m_static_paragraph.get_text_rect()));
+}
+
+void CTest_StaticExDlg::OnCbnSelchangeComboHAlign()
+{
+	int index = m_combo_halign.GetCurSel();
+	if (index < 0 || index >= m_combo_halign.GetCount())
+		return;
+
+	switch (index)
+	{
+		case 0 :
+			break;
+	}
+
+	//DT_LEFT에서 DT_RIGHT로 변경 시 get_text_align()을 통해 얻어온 후 변경해야 하는데
+	//가로, 세로 정렬이 섞여있을 경우는 기존 정렬 설정값을 제거하고 새로 추가하는 것이 애매하다.
+	//가로, 세로 정렬 세팅값을 별도로 저장하고 있어야하나...
+	//m_static_paragraph.set_text_align()
+}
+
+void CTest_StaticExDlg::OnCbnSelchangeComboVAlign()
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
 }

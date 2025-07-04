@@ -64,4 +64,8 @@ public:
 	virtual void PreSubclassWindow();
 	CSCEdit m_edit_tag;
 	afx_msg void OnEnChangeEditTag();
+	CComboBox m_combo_halign;
+	CComboBox m_combo_valign;
+	afx_msg void OnCbnSelchangeComboHAlign();
+	afx_msg void OnCbnSelchangeComboVAlign();
 };
