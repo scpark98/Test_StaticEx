@@ -169,10 +169,11 @@ BOOL CTest_StaticExDlg::OnInitDialog()
 	m_static_title.set_back_color(Gdiplus::Color::Beige);
 	m_static_title.set_round(22, Gdiplus::Color::Gray, get_sys_color(COLOR_3DFACE));
 	m_static_title.set_font_size(18);
+	m_static_title.set_tooltip_text(_T("m_static_title"));
 
-	m_static_auto_font_size.set_font_name(_T("D2Coding"));
-	m_static_auto_font_size.set_font_italic();
 	m_static_auto_font_size.set_font_size(36);
+	m_static_auto_font_size.set_font_name(_T("Malgun Gothic"));
+	m_static_auto_font_size.set_font_italic();
 	m_static_auto_font_size.set_auto_font_size();
 	m_static_auto_font_size.set_back_color(Gdiplus::Color::Pink);
 

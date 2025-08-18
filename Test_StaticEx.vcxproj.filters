@@ -51,9 +51,6 @@
     <ClInclude Include="..\..\Common\CStatic\SCStatic\SCStatic.h">
       <Filter>Common</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Common\GdiplusBitmap.h">
-      <Filter>Common</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Common\ResizeCtrl.h">
       <Filter>Common</Filter>
     </ClInclude>
@@ -67,6 +64,9 @@
       <Filter>Common</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Common\CEdit\SCEdit\SCEdit.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\SCGdiplusBitmap.h">
       <Filter>Common</Filter>
     </ClInclude>
   </ItemGroup>
@@ -89,9 +89,6 @@
     <ClCompile Include="..\..\Common\CStatic\SCStatic\SCStatic.cpp">
       <Filter>Common</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Common\GdiplusBitmap.cpp">
-      <Filter>Common</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Common\ResizeCtrl.cpp">
       <Filter>Common</Filter>
     </ClCompile>
@@ -105,6 +102,9 @@
       <Filter>Common</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Common\CEdit\SCEdit\SCEdit.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Common\SCGdiplusBitmap.cpp">
       <Filter>Common</Filter>
     </ClCompile>
   </ItemGroup>
