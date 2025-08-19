@@ -265,13 +265,13 @@ HCURSOR CTest_StaticExDlg::OnQueryDragIcon()
 
 void CTest_StaticExDlg::OnBnClickedOk()
 {
-	m_static_white.sunken();
+	//m_static_white.sunken();
 
-	CRect rctrl = m_static_white.get_rect();
-	TRACE(_T("static_auto_font_size rect = %s\n"), get_rect_info_string(rctrl));
+	//CRect rctrl = m_static_white.get_rect();
+	//TRACE(_T("static_auto_font_size rect = %s\n"), get_rect_info_string(rctrl));
 
-	CRect r = m_static_auto_font_size.get_text_rect();
-	TRACE(_T("static_auto_font_size text rect = %s\n"), get_rect_info_string(r));
+	//CRect r = m_static_auto_font_size.get_text_rect();
+	//TRACE(_T("static_auto_font_size text rect = %s\n"), get_rect_info_string(r));
 
 	int i;
 

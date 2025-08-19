@@ -48,8 +48,8 @@ public:
 	afx_msg void OnBnClickedButtonMarquee();
 	afx_msg void OnBnClickedButtonGrayUp();
 	afx_msg void OnBnClickedButtonWhiteUp();
-	CSCStatic m_static_gray;
-	CSCStatic m_static_white;
+	CStatic m_static_gray;
+	CStatic m_static_white;
 	CSCStatic m_static_auto_font_size;
 	afx_msg void OnWindowPosChanged(WINDOWPOS* lpwndpos);
 	CSCStatic m_static_image;
