@@ -166,6 +166,8 @@ BOOL CTest_StaticExDlg::OnInitDialog()
 
 	RestoreWindowPosition(&theApp, this);
 
+	m_static[0].set_font_bold(FW_BOLD);
+
 	m_static_title.set_back_color(Gdiplus::Color::Beige);
 	m_static_title.set_round(22, Gdiplus::Color::Gray, get_sys_color(COLOR_3DFACE));
 	m_static_title.set_font_size(18);
