@@ -418,7 +418,7 @@ void CTest_StaticExDlg::OnEnChangeEditTag()
 	m_edit_tag.GetWindowText(text);
 
 	m_static_paragraph.set_text(text);
-	TRACE(_T("rect_text = %s\n"), get_rect_info_string(m_static_paragraph.get_text_rect()));
+	TRACE(_T("rect_text = %s\n"), get_rect_info_str(m_static_paragraph.get_text_rect()));
 }
 
 void CTest_StaticExDlg::OnCbnSelchangeComboHAlign()
