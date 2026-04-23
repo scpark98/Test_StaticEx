@@ -83,6 +83,8 @@ void CTest_StaticExDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_EDIT_TAG, m_edit_tag);
 	DDX_Control(pDX, IDC_COMBO_HALIGN, m_combo_halign);
 	DDX_Control(pDX, IDC_COMBO_VALIGN, m_combo_valign);
+	DDX_Control(pDX, IDC_STATIC_EDIT, m_static_edit);
+	DDX_Control(pDX, IDC_STATIC_LINE_SPACING, m_static_line_spacing);
 }
 
 BEGIN_MESSAGE_MAP(CTest_StaticExDlg, CDialogEx)
@@ -101,6 +103,7 @@ BEGIN_MESSAGE_MAP(CTest_StaticExDlg, CDialogEx)
 	ON_EN_CHANGE(IDC_EDIT_TAG, &CTest_StaticExDlg::OnEnChangeEditTag)
 	ON_CBN_SELCHANGE(IDC_COMBO_HALIGN, &CTest_StaticExDlg::OnCbnSelchangeComboHAlign)
 	ON_CBN_SELCHANGE(IDC_COMBO_VALIGN, &CTest_StaticExDlg::OnCbnSelchangeComboVAlign)
+	ON_REGISTERED_MESSAGE(Message_CSCStaticEdit, &CTest_StaticExDlg::on_message_CSCStaticEdit)
 END_MESSAGE_MAP()
 
 
@@ -148,15 +151,17 @@ BOOL CTest_StaticExDlg::OnInitDialog()
 	get_proxy_info(enable, ip, port, bypass, PAC_url);
 
 	m_resize.Create(this);
-	m_resize.Add(IDC_STATIC_AUTO_FONT_SIZE, 0, 0, 50, 50);
-	m_resize.Add(IDC_STATIC_PARAGRAPH, 0, 50, 50, 50);
+	m_resize.Add(IDC_STATIC_AUTO_FONT_SIZE, 0, 0, 50, 0);
+	m_resize.Add(IDC_STATIC_PARAGRAPH, 0, 0, 50, 100);
 	m_resize.Add(IDC_COMBO_HALIGN, 0, 100, 0, 0);
 	m_resize.Add(IDC_COMBO_VALIGN, 0, 100, 0, 0);
+	m_resize.Add(IDC_STATIC_LINE_SPACING, 0, 100, 0, 0);
 	m_resize.Add(IDC_EDIT_TAG, 0, 100, 100, 0);
 	m_resize.Add(IDC_STATIC_IMAGE, 50, 0, 50, 100);
 	m_resize.Add(IDC_CHECK_MIRROR, 100, 100, 0, 0);
 	m_resize.Add(IDC_BUTTON_PLAY, 100, 100, 0, 0);
 	m_resize.Add(IDC_STATIC_LINK, 0, 100, 0, 0);
+	m_resize.Add(IDC_STATIC_EDIT, 100, 100, 0, 0);
 
 	CWinApp* pApp = &theApp;
 
@@ -166,10 +171,10 @@ BOOL CTest_StaticExDlg::OnInitDialog()
 
 	RestoreWindowPosition(&theApp, this);
 
-	m_static[0].set_font_bold(FW_BOLD);
+	m_static[0].set_font_weight(FW_BOLD);
 
 	m_static_title.set_back_color(Gdiplus::Color::Beige);
-	m_static_title.set_round(22, Gdiplus::Color::Gray, get_sys_color(COLOR_3DFACE));
+	m_static_title.set_round(-1, Gdiplus::Color::Gray, get_sys_color(COLOR_3DFACE));
 	m_static_title.set_font_size(18);
 	m_static_title.set_tooltip_text(_T("m_static_title"));
 
@@ -186,6 +191,10 @@ BOOL CTest_StaticExDlg::OnInitDialog()
 	m_static_paragraph.set_icon(IDR_MAINFRAME, 32);
 	m_static_paragraph.set_text(tag_text);
 	m_static_paragraph.draw_word_hover_rect();
+	m_static_paragraph.set_line_spacing(1.5f);
+
+	float line_spacing = m_static_paragraph.get_line_spacing();
+	m_static_line_spacing.set_textf(_T("%.1f"), line_spacing);
 
 	m_edit_tag.SetWindowText(tag_text);
 	m_edit_tag.set_font_size(8);
@@ -198,6 +207,8 @@ BOOL CTest_StaticExDlg::OnInitDialog()
 	m_combo_valign.AddString(_T("DT_VCENTER"));
 	m_combo_valign.AddString(_T("DT_BOTTOM"));
 
+	m_static_line_spacing.set_use_updown_key(true, 0.1f);
+
 	m_static_image.set_back_color(Gdiplus::Color::Red);
 	m_static_image.set_back_image(_T("GIF"), IDR_GIF_NOTEBOOK, Gdiplus::Color::White);
 	m_static_image.fit_to_back_image(false);
@@ -205,6 +216,9 @@ BOOL CTest_StaticExDlg::OnInitDialog()
 	
 	m_static_link.set_link(_T("https://google.com"));
 
+	m_static_edit.set_use_edit();
+	m_static_edit.set_text_value(_T("%d"), 12345);
+	m_static_edit.set_edit_width(80);
 	//for (int i = 100; i <= 600; i++)
 	//{
 	//	TRACE(_T("get_error_str %d = %s\n"), i, get_error_str(i));
@@ -442,4 +456,29 @@ void CTest_StaticExDlg::OnCbnSelchangeComboHAlign()
 void CTest_StaticExDlg::OnCbnSelchangeComboVAlign()
 {
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+}
+
+LRESULT CTest_StaticExDlg::on_message_CSCStaticEdit(WPARAM wParam, LPARAM lParam)
+{
+	CSCStaticEditMessage* pMsg = reinterpret_cast<CSCStaticEditMessage*>(wParam);
+	if (!pMsg || pMsg->pThis == nullptr)
+		return 0;
+
+	if (pMsg->pThis == &m_static_line_spacing)
+	{
+		switch (pMsg->message)
+		{
+		case CSCStaticEdit::message_scstaticedit_enter:
+			SetWindowText(_T("Static Edit: Enter key pressed"));
+			break;
+		case CSCStaticEdit::message_scstaticedit_escape:
+			SetWindowText(_T("Static Edit: Escape key pressed"));
+			break;
+		case CSCStaticEdit::message_scstaticedit_text_changed:
+			m_static_paragraph.set_line_spacing(m_static_line_spacing.get_float());
+			break;
+		default:
+			break;
+		}
+	}
 }

@@ -6,6 +6,7 @@
 #include "afxwin.h"
 
 #include "../../Common/CEdit/SCEdit/SCEdit.h"
+#include "../../Common/CEdit/CSCStaticEdit/SCStaticEdit.h"
 #include "../../Common/CStatic/SCStatic/SCStatic.h"
 #include "../../Common/CStatic/SCParagraphStatic/SCParagraphStatic.h"
 #include "../../Common/ResizeCtrl.h"
@@ -17,10 +18,12 @@ class CTest_StaticExDlg : public CDialogEx
 public:
 	CTest_StaticExDlg(CWnd* pParent = NULL);	// standard constructor
 
-	CResizeCtrl		m_resize;
-	double			m_hue;
+	CResizeCtrl			m_resize;
+	double				m_hue;
 
-// Dialog Data
+	LRESULT				on_message_CSCStaticEdit(WPARAM wParam, LPARAM lParam);
+	
+	// Dialog Data
 #ifdef AFX_DESIGN_TIME
 	enum { IDD = IDD_TEST_STATICEX_DIALOG };
 #endif
@@ -68,4 +71,6 @@ public:
 	CComboBox m_combo_valign;
 	afx_msg void OnCbnSelchangeComboHAlign();
 	afx_msg void OnCbnSelchangeComboVAlign();
+	CSCStatic m_static_edit;
+	CSCStaticEdit m_static_line_spacing;
 };
