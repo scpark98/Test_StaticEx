@@ -1,4 +1,4 @@
-
+﻿
 // Test_StaticEx.cpp : Defines the class behaviors for the application.
 //
 
