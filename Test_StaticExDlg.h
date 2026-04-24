@@ -20,6 +20,8 @@ public:
 
 	CResizeCtrl			m_resize;
 	double				m_hue;
+	DWORD				m_text_align = DT_LEFT;
+	DWORD				m_line_align;
 
 	LRESULT				on_message_CSCStaticEdit(WPARAM wParam, LPARAM lParam);
 	

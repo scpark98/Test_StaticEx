@@ -184,14 +184,20 @@ BOOL CTest_StaticExDlg::OnInitDialog()
 	m_static_auto_font_size.set_auto_font_size();
 	m_static_auto_font_size.set_back_color(Gdiplus::Color::Pink);
 
-	CString tag_text = _T("SCPARK-KOINO-LG<br><f=궁서><b><cr=Red><u>This</b></cr> <sz=18>is</sz></u> a<br><cb=Red><i><sz=64>태</i>그</sz></f><cr=Green><b><sz=30>pa</f><cr=Yellow>ra<s>gr</cr>a</s>ph</b>.");
+	CString tag_text = _T("SCPARK-KOINO-LG<br>")
+		_T("<f=궁서><b><cr=Red><u>This</b></cr> <sz=18>is</sz></u> a<br>")
+		_T("<cb=Red><i><sz=64>태</i>그</sz></f><cr=Green><b><sz=30>pa</f><cr=Yellow>ra<s>gr</cr>a</s>ph</b>.</cb></cr><br>")
+		_T("<cr=royalblue>4th line<br>")
+		_T("<cr=crimson>5th line<br>")
+		_T("<cr=darkorange>6th line");
 	//CString tag_text = _T("This is a<br><sz=20>sample paragraph");
 	m_static_paragraph.set_margin(4, 4, 4, 4);
 	m_static_paragraph.set_back_color(Gdiplus::Color::Beige);
 	m_static_paragraph.set_icon(IDR_MAINFRAME, 32);
 	m_static_paragraph.set_text(tag_text);
 	m_static_paragraph.draw_word_hover_rect();
-	m_static_paragraph.set_line_spacing(1.5f);
+	m_static_paragraph.set_line_spacing(1.0f);
+	m_static_paragraph.set_line_spacing(3, 2.0f);
 
 	float line_spacing = m_static_paragraph.get_line_spacing();
 	m_static_line_spacing.set_textf(_T("%.1f"), line_spacing);
@@ -443,19 +449,34 @@ void CTest_StaticExDlg::OnCbnSelchangeComboHAlign()
 
 	switch (index)
 	{
-		case 0 :
-			break;
+		case 1: m_text_align = DT_CENTER; break;
+		case 2: m_text_align = DT_RIGHT; break;
+		default: m_text_align = DT_LEFT; break;
 	}
 
 	//DT_LEFT에서 DT_RIGHT로 변경 시 get_text_align()을 통해 얻어온 후 변경해야 하는데
 	//가로, 세로 정렬이 섞여있을 경우는 기존 정렬 설정값을 제거하고 새로 추가하는 것이 애매하다.
 	//가로, 세로 정렬 세팅값을 별도로 저장하고 있어야하나...
-	//m_static_paragraph.set_text_align()
+	m_static_paragraph.set_text_align(m_text_align | m_line_align);
 }
 
 void CTest_StaticExDlg::OnCbnSelchangeComboVAlign()
 {
-	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	int index = m_combo_halign.GetCurSel();
+	if (index < 0 || index >= m_combo_halign.GetCount())
+		return;
+
+	switch (index)
+	{
+		case 1: m_line_align = DT_CENTER; break;
+		case 2: m_line_align = DT_BOTTOM; break;
+		default: m_line_align = DT_TOP; break;
+	}
+
+	//DT_LEFT에서 DT_RIGHT로 변경 시 get_text_align()을 통해 얻어온 후 변경해야 하는데
+	//가로, 세로 정렬이 섞여있을 경우는 기존 정렬 설정값을 제거하고 새로 추가하는 것이 애매하다.
+	//가로, 세로 정렬 세팅값을 별도로 저장하고 있어야하나...
+	m_static_paragraph.set_text_align(m_text_align | m_line_align);
 }
 
 LRESULT CTest_StaticExDlg::on_message_CSCStaticEdit(WPARAM wParam, LPARAM lParam)
